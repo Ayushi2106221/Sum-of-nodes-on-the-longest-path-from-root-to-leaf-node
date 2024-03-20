@@ -1,0 +1,32 @@
+class Solution
+{
+public:
+     int ans=0, mh=0;
+      void find(Node* root, int h, int s){
+        if(!root){
+            return;
+        }
+        if(!root->left && !root->right){
+            s+=root->data;
+            if(h>mh){
+                ans=s;
+                mh=h;
+            }
+            else if(h==mh){
+                ans=max(ans, s);
+            }
+            return ;
+        }
+        
+        s+=root->data;
+        find(root->left, h+1, s);
+        find(root->right, h+1, s);
+        
+        return;
+    }
+    int sumOfLongRootToLeafPath(Node *root)
+    {
+       find(root, 0, 0);
+        return ans;
+    }
+};
